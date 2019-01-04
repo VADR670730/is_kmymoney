@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+	<record id="view_account_month_year_wise_report_graph" model="ir.ui.view">
+         <field name="name">account.month.wise.report.graph</field>
+         <field name="model">account.month.wise.report</field>
+         <field name="arch" type="xml">
+             <graph string="Month Wise" type="pivot">
+                 <field name="acc_name" type="row"/>
+                 <field name="post_date" type="col"/>
+                 <field name="bal_value" type="measure"/>
+             </graph>
+         </field>
+    </record>
+    
+    <record id="action_acc_month_report" model="ir.actions.act_window">
+        <field name="name">Account Month wise</field>
+        <field name="res_model">account.month.wise.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+    </record>
+    <menuitem id="menu_report" name="Report" parent="kmn_menu_top" sequence="25"/>
+    <!--<menuitem action="action_acc_month_report" id="menu_action_acc_month_report" parent="menu_report" sequence="10" />-->
+    
+
+</data>
+</openerp>
