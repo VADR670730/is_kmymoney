@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 
 from openerp import tools
-import openerp.addons.decimal_precision as dp
-from openerp.osv import fields, osv
+from openerp import models,fields,api
+from openerp.tools.translate import _
 
-class solde_par_an_report(osv.osv):
+
+class SoldeParAnReport(models.Model):
     _name = "kmn.solde.par.an.report"
     _description = "Solde par an et par compte"
     _auto = False
     _rec_name = 'compte'
 
-    _columns = {
-        'compte': fields.char('Compte'),
-        'annee': fields.date('Année'),
-        'solde': fields.float('Solde', digits=(1, 0), readonly=True),
-    }
-    
-    def init(self, cr):
+    compte = fields.Char(u'Compte')
+    annee  = fields.Date(u'Année')
+    solde  = fields.Float(u'Solde', digits=(1, 0), readonly=True)
+
+
+    def init(self):
+        cr , uid, context = self.env.args
         tools.drop_view_if_exists(cr, 'kmn_an')
         cr.execute("""CREATE or REPLACE VIEW kmn_an as (
             select distinct (to_char(post_date,'YYYY-12-31'))::date  annee 

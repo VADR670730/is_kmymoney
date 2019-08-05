@@ -20,7 +20,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">graph</field>
     </record>
-    <menuitem id="menu_report" name="Report" parent="kmn_menu_top" sequence="25"/>
+
     <!--<menuitem action="action_acc_month_report" id="menu_action_acc_month_report" parent="menu_report" sequence="10" />-->
     
 

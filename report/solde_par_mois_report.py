@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
 
 from openerp import tools
-import openerp.addons.decimal_precision as dp
-from openerp.osv import fields, osv
+from openerp import models,fields,api
+from openerp.tools.translate import _
 
-class solde_par_mois_report(osv.osv):
+
+class SoldeParMoisReport(models.Model):
     _name = "kmn.solde.par.mois.report"
     _description = "Solde par mois et par compte"
     _auto = False
     _rec_name = 'compte'
 
-    _columns = {
-        'compte': fields.char('Compte'),
-        'mois': fields.date('Mois'),
-        'solde': fields.float('Solde', digits=(1, 0), readonly=True),
-    }
+
+    compte = fields.Char(u'Compte')
+    mois   = fields.Date(u'Mois')
+    solde  = fields.Float(u'Solde', digits=(1, 0), readonly=True)
+
     
-    def init(self, cr):
+    def init(self):
+        cr , uid, context = self.env.args
         tools.drop_view_if_exists(cr, 'kmn_mois')
         cr.execute("""CREATE or REPLACE VIEW kmn_mois as (
             select distinct (to_char(post_date,'YYYY-MM-01')::date  + interval '1 month - 1 day')::date  mois 
@@ -26,7 +28,6 @@ class solde_par_mois_report(osv.osv):
         )""")
 
         tools.drop_view_if_exists(cr, 'kmn_solde_par_mois_report')
-
         cr.execute("""CREATE or REPLACE VIEW kmn_solde_par_mois_report as (
             select 
                 a.id,
@@ -38,5 +39,4 @@ class solde_par_mois_report(osv.osv):
             where a.institution_id is not null and active=true 
             order by a.name, m.mois
         )""")
-
 

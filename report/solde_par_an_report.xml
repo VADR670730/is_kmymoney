@@ -2,15 +2,15 @@
 <openerp>
 <data>
 
-    <record id="kmn_solde_par_an_report_graph" model="ir.ui.view">
-         <field name="name">kmn_solde_par_an_report_graph</field>
+    <record id="kmn_solde_par_an_report_pivot" model="ir.ui.view">
+         <field name="name">kmn_solde_par_an_report_pivot</field>
          <field name="model">kmn.solde.par.an.report</field>
          <field name="arch" type="xml">
-             <graph string="Année" type="pivot">
+             <pivot>
                  <field name="compte" type="row"/>
                  <field name="annee" type="col"/>
                  <field name="solde" type="measure"/>
-             </graph>
+             </pivot>
          </field>
     </record>
     
@@ -18,9 +18,9 @@
         <field name="name">Solde par an</field>
         <field name="res_model">kmn.solde.par.an.report</field>
         <field name="view_type">form</field>
-        <field name="view_mode">graph</field>
+        <field name="view_mode">pivot</field>
     </record>
-    <menuitem action="kmn_solde_par_an_report_action" id="kmn_solde_par_an_report_menu" parent="menu_report" sequence="10" />
+    <menuitem action="kmn_solde_par_an_report_action" id="kmn_solde_par_an_report_menu" parent="is_kmymoney_report_main_menu" sequence="10" />
     
 </data>
 </openerp>
